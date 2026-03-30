@@ -11,7 +11,7 @@ router = APIRouter(prefix="/actions", tags=["Actions"])
 ACTIVE_ACTIONS = {}
 
 @router.post("/report")
-async def report_action(payload: ActionReport, current_user: User = Depends(get_current_user)):
+async def report_action(payload: ActionReport):
     async with async_session() as session:
         if payload.state:
             ACTIVE_ACTIONS[payload.plant_id] = {
@@ -20,7 +20,7 @@ async def report_action(payload: ActionReport, current_user: User = Depends(get_
             }
             new_action = PlantAction(
                 plant_id=payload.plant_id,
-                user_id=current_user.id,
+                user_id=1,
                 action_type=payload.action,
                 started_at=datetime.utcnow()
             )
