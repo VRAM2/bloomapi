@@ -16,9 +16,9 @@ from src.services.sensors import get_latest_sensor_data
 router = APIRouter(prefix="/plants", tags=["Plants"])
 
 @router.get("/", response_model=list[PlantResponse])
-async def get_my_plants(current_user: User = Depends(get_current_user)):
+async def get_my_plants():
 
-    plants = await get_plants_by_user(current_user.id)
+    plants = await get_plants_by_user(1)
     return plants
 
 
